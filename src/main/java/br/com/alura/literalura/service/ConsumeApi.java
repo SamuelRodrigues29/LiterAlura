@@ -10,22 +10,30 @@ import java.net.http.HttpResponse;
 
 public class ConsumeApi {
 
-    public String theDataFromApi (String endereco) {
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(endereco))
-                .build();
-        HttpResponse<String> response = null;
 
-        try {
-            response = client
-                    .send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        public String theDataFromApi(String url) {
+            HttpClient client = HttpClient.newBuilder()
+                    .followRedirects(HttpClient.Redirect.ALWAYS)
+                    .build();
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .build();
+
+            HttpResponse<String> response = null;
+
+            try {
+                response = client
+                        .send(request, HttpResponse.BodyHandlers.ofString());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            String json = response.body();
+            return json;
+
         }
-        String json = response.body();
-        return json;
+
     }
-}

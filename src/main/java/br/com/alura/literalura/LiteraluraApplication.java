@@ -1,5 +1,6 @@
 package br.com.alura.literalura;
 
+
 import br.com.alura.literalura.model.DataBooks;
 import br.com.alura.literalura.service.ConsumeApi;
 import br.com.alura.literalura.service.TransformData;
@@ -16,11 +17,7 @@ public class LiteraluraApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		ConsumeApi consumeApi = new ConsumeApi();
-		var json = consumeApi.theDataFromApi("https://gutendex.com/books");
-		System.out.println(json);
-        TransformData transformerData = new TransformData();
-        DataBooks dataOfTheBooks = transformerData.theDataFromApi(json, DataBooks.class);
-        System.out.println(dataOfTheBooks);
+
+
 	}
 }
